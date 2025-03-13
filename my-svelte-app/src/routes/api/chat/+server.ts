@@ -12,9 +12,10 @@ export const POST: RequestHandler = async ({ request }) => {
 
         // User preferences (contextual details)
         const user = {
-            name: "Henric Matthew E. Delrosario",
-            likes: ["coffee", "brownies", "fried chicken"],
-            hobbies: ["Tekken 8", "Farlight 84", "Valorant"]
+            name: "John Dominic C. Caiga",
+            likes: ["Burger", "chocolate", "steak"],
+            hobbies: ["Music", "LoL", "Valorant"],
+            about: ["I'm currently enrolled in the course Bachelor of Science in Computer Science at Gordon College", "I'm currently 20 years old", "This project is under the subject Intelligents Systems"]
         };
 
         // Construct a concise prompt
@@ -22,6 +23,7 @@ export const POST: RequestHandler = async ({ request }) => {
         - Name: ${user.name}
         - Likes: ${user.likes.join(", ")}
         - Hobbies: ${user.hobbies.join(", ")}
+        - About: ${user.about.join(", ")}
         
         User's Message: "${chat}"`;
 
