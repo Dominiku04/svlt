@@ -7,7 +7,6 @@
     const onSubmit = async () => {
         if (!chat.trim()) return;
 
-        // Add user message to chat history
         chatHistory = [...chatHistory, { text: chat, type: "user" }];
         const userInput = chat;
         chat = "";
@@ -20,7 +19,6 @@
             });
             const res = await req.json();
 
-            // Remove <think> tags using regex and add bot response
             response = res.reply.replace(/<\/?think>/g, "").trim();
             chatHistory = [...chatHistory, { text: response, type: "bot" }];
         } catch (error) {
@@ -31,21 +29,89 @@
     };
 </script>
 
-<div class="max-w-lg mx-auto bg-white rounded-lg shadow-lg p-6 flex flex-col gap-4">
-    <h2 class="text-xl font-semibold text-gray-700">Chatbot</h2>
-    <div class="h-96 overflow-y-auto space-y-3 p-3 border rounded-lg bg-gray-50 shadow-inner">
+<style>
+    .chat-container {
+        max-width: 450px;
+        margin: auto;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .chat-header {
+        padding: 16px;
+        background: #2563eb;
+        color: white;
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+    }
+    .chat-messages {
+        flex: 1;
+        padding: 16px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .message {
+        max-width: 75%;
+        padding: 10px;
+        border-radius: 18px;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        word-wrap: break-word;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .user {
+        background: #2563eb;
+        color: white;
+        align-self: flex-end;
+    }
+    .bot {
+        background: #e5e7eb;
+        color: black;
+        align-self: flex-start;
+    }
+    .chat-input {
+        display: flex;
+        padding: 12px;
+        border-top: 1px solid #ddd;
+        background: #f9fafb;
+    }
+    .chat-input input {
+        flex: 1;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        outline: none;
+    }
+    .chat-input button {
+        margin-left: 8px;
+        padding: 10px 16px;
+        background: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .chat-input button:hover {
+        background: #1e40af;
+    }
+</style>
+
+<div class="chat-container">
+    <div class="chat-header">Chatbot</div>
+    <div class="chat-messages">
         {#each chatHistory as msg (msg.text)}
-            <div class="flex {msg.type === 'user' ? 'justify-end' : 'justify-start'}">
-                <div class="p-3 max-w-xs rounded-2xl text-white text-sm"
-                    class:bg-blue-500={msg.type === 'user'} class:bg-gray-300={msg.type === 'bot'}>
-                    {msg.text}
-                </div>
-            </div>
+            <div class="message {msg.type}">{msg.text}</div>
         {/each}
     </div>
-    <div class="flex gap-2 items-center border-t pt-3">
-        <input bind:value={chat} placeholder="Type your message..."
-            class="flex-1 p-2 border rounded-lg focus:ring focus:ring-blue-400 focus:outline-none" />
-        <button on:click={onSubmit} class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">Send</button>
+    <div class="chat-input">
+        <input bind:value={chat} placeholder="Type a message..." on:keypress={(e) => e.key === 'Enter' && onSubmit()} />
+        <button on:click={onSubmit}>Send</button>
     </div>
 </div>

@@ -15,7 +15,7 @@ export const POST: RequestHandler = async ({ request }) => {
             name: "John Dominic C. Caiga",
             likes: ["Burger", "chocolate", "steak"],
             hobbies: ["Music", "LoL", "Valorant"],
-            about: ["I'm currently enrolled in the course Bachelor of Science in Computer Science at Gordon College", "I'm currently 20 years old", "This project is under the subject Intelligents Systems"]
+            about: ["I'm currently enrolled in the course Bachelor of Science in Computer Science at Gordon College", "I'm 20 years old, my birthday is on august 6, 2004", "This project is under the subject Intelligents Systems"]
         };
 
         // Construct a concise prompt
