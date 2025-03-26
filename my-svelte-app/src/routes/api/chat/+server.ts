@@ -13,8 +13,13 @@ export const POST: RequestHandler = async ({ request }) => {
         // User preferences (contextual details)
         const user = {
             name: "Henric Matthew E. Delrosario",
-            likes: ["coffee", "brownies", "fried chicken"],
-            hobbies: ["Tekken 8", "Farlight 84", "Valorant"]
+            likes: ["NBA", "WWE", "Netflix"],
+            hobbies: ["Basketball", "Running", "Working Out"],
+            home: "#25 D Fontaine 18th St. EBB OC",
+            age: "21 years old",
+            study: "Bachelor of Science in Computer Science",
+            school: "Gordon College",
+            gender: "Male",
         };
 
         // Construct a concise prompt
@@ -22,6 +27,11 @@ export const POST: RequestHandler = async ({ request }) => {
         - Name: ${user.name}
         - Likes: ${user.likes.join(", ")}
         - Hobbies: ${user.hobbies.join(", ")}
+        - Home: ${user.home}
+        - Age: ${user.age}
+        - Studying: ${user.study}
+        - School: ${user.school}
+        - Gender: ${user.gender}
         
         User's Message: "${chat}"`;
 
