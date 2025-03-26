@@ -7,33 +7,40 @@ export const POST: RequestHandler = async ({ request }) => {
     try {
         const { chat } = await request.json();
         if (!chat || chat.trim() === "") {
-            return json({ reply: "Please provide a message." });
+            return json({ reply: "Please provide a valid message." });
         }
 
-        // User preferences (contextual details)
+        // User profile details
         const user = {
-            name: "Henric Matthew E. Delrosario",
-            likes: ["NBA", "WWE", "Netflix"],
-            hobbies: ["Basketball", "Running", "Working Out"],
-            home: "#25 D Fontaine 18th St. EBB OC",
-            age: "21 years old",
-            study: "Bachelor of Science in Computer Science",
+            name: "John Dominic Calma Caiga",
+            likes: ["Sleeping", "Music", "Eating"],
+            hobbies: ["Gaming", "Swimming", "Working Out"],
+            home: "#61 Murphy St., Brgy. Pag-asa",
+            age: "20 years old",
+            course: "BS Computer Science",
             school: "Gordon College",
             gender: "Male",
+            subject: "Intelligent Systems",
+            religion: "Iglesia Ni Cristo",
+            family: ["We are a family of 4", "We are only 2 brothers in the family"]
         };
 
-        // Construct a concise prompt
-        const prompt = `You are an AI. Answer the following directly without unnecessary explanations:
+        // Constructing a structured prompt
+        const prompt = `
+        You are an AI. Answer the following directly without unnecessary explanations:
         - Name: ${user.name}
-        - Likes: ${user.likes.join(", ")}
+        - Age: ${user.age}
+        - Gender: ${user.gender}
+        - Studying: ${user.course} at ${user.school}
+        - Likes: ${user.likes.join(", ")} 
         - Hobbies: ${user.hobbies.join(", ")}
         - Home: ${user.home}
-        - Age: ${user.age}
-        - Studying: ${user.study}
-        - School: ${user.school}
-        - Gender: ${user.gender}
+        - Subject: ${user.subject}
+        - Religion: ${user.religion}
+        - Family: ${user.family.join(", ")}
         
-        User's Message: "${chat}"`;
+        **User Message:** "${chat}"
+        **AI Response:**`;
 
         const response = await ollama.chat({
             model: "deepseek-r1:latest",

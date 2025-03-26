@@ -30,23 +30,43 @@
 </script>
 
 <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #0a192f;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+    }
+
     .chat-container {
-        max-width: 450px;
-        margin: auto;
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        height: 100vh;
         display: flex;
         flex-direction: column;
+        background: #1a1a2e;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         overflow: hidden;
+        border: 2px solid #00f5d4;
     }
     .chat-header {
         padding: 16px;
-        background: #2563eb;
-        color: white;
-        font-size: 1.2rem;
+        background: #16213e;
+        color: #ffffff;
+        font-size: 1.5rem;
         font-weight: bold;
         text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 2px;
     }
     .chat-messages {
         flex: 1;
@@ -55,56 +75,63 @@
         display: flex;
         flex-direction: column;
         gap: 8px;
+        background: #0f3460;
+        color: white;
     }
     .message {
         max-width: 75%;
-        padding: 10px;
-        border-radius: 18px;
-        font-size: 0.9rem;
+        padding: 12px;
+        border-radius: 12px;
+        font-size: 1rem;
         line-height: 1.4;
         word-wrap: break-word;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
     .user {
-        background: #2563eb;
-        color: white;
+        background: #00f5d4;
+        color: black;
         align-self: flex-end;
     }
     .bot {
-        background: #e5e7eb;
-        color: black;
+        background: #e94560;
+        color: white;
         align-self: flex-start;
     }
     .chat-input {
         display: flex;
-        padding: 12px;
-        border-top: 1px solid #ddd;
-        background: #f9fafb;
+        padding: 16px;
+        border-top: 2px solid #00f5d4;
+        background: #16213e;
     }
     .chat-input input {
         flex: 1;
-        padding: 10px;
+        padding: 14px;
         border-radius: 8px;
-        border: 1px solid #ddd;
+        border: 1px solid #00f5d4;
         outline: none;
+        background: #0f3460;
+        color: white;
+        font-size: 1rem;
     }
     .chat-input button {
         margin-left: 8px;
-        padding: 10px 16px;
-        background: #2563eb;
-        color: white;
+        padding: 14px 20px;
+        background: #00f5d4;
+        color: black;
         border: none;
         border-radius: 8px;
         cursor: pointer;
-        transition: background 0.2s;
+        transition: background 0.2s, transform 0.1s;
+        font-size: 1rem;
     }
     .chat-input button:hover {
-        background: #1e40af;
+        background: #00cba9;
+        transform: scale(1.05);
     }
 </style>
 
 <div class="chat-container">
-    <div class="chat-header">Chatbot</div>
+    <div class="chat-header">AI Chatbot</div>
     <div class="chat-messages">
         {#each chatHistory as msg (msg.text)}
             <div class="message {msg.type}">{msg.text}</div>
