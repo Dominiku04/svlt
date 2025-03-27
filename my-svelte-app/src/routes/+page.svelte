@@ -5,28 +5,29 @@
     let chatHistory: { text: string; type: "user" | "bot" }[] = [];
 
     const onSubmit = async () => {
-        if (!chat.trim()) return;
+    if (!chat.trim()) return;
 
-        chatHistory = [...chatHistory, { text: chat, type: "user" }];
-        const userInput = chat;
-        chat = "";
+    chatHistory = [...chatHistory, { text: chat, type: "user" }];
+    const userInput = chat;
+    chat = "";
 
-        try {
-            const req = await fetch("/api/chat", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ chat: userInput })
-            });
-            const res = await req.json();
+    try {
+        const req = await fetch("/api/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ chat: userInput })
+        });
+        const res = await req.json();
 
-            response = res.reply.replace(/<\/?think>/g, "").trim();
-            chatHistory = [...chatHistory, { text: response, type: "bot" }];
-        } catch (error) {
-            console.error("Error:", error);
-            response = "An error occurred.";
-            chatHistory = [...chatHistory, { text: response, type: "bot" }];
-        }
-    };
+        response = JSON.stringify(res, null, 2); // Format JSON output
+        chatHistory = [...chatHistory, { text: response, type: "bot" }];
+    } catch (error) {
+        console.error("Error:", error);
+        response = "An error occurred.";
+        chatHistory = [...chatHistory, { text: response, type: "bot" }];
+    }
+};
+
 </script>
 
 <style>
